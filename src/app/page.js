@@ -1,18 +1,18 @@
 'use client'
-// import Image from 'next/image'
-import { Roboto_Slab, Source_Code_Pro } from 'next/font/google'
-import styles from './page.module.scss'
-
-import { useRef, useState, useEffect } from 'react';
-import Editor from '@monaco-editor/react';
+import { Roboto_Slab, Source_Code_Pro, Lato } from 'next/font/google'
+import { useState, useEffect } from 'react';
 import { parse } from 'marked';
+import Image from 'next/image';
 
+
+import styles from './page.module.scss'
 import markdownMock from './markdown-mock'
 const robotoSlab = Roboto_Slab({ subsets: ['latin'] })
 const sourceCodePro = Source_Code_Pro({ subsets: ['latin'] })
+const lato = Lato({ subsets: ['latin'], weight: '400' })
 
 export default function Home() {
-  const editorRef = useRef(null);
+  const [fileTitle, setFileTitle] = useState('welcome.md')
   const [code, setCode] = useState('')
   const [text, setText] = useState('')
 
@@ -21,14 +21,14 @@ export default function Home() {
     setCode(parse(markdownMock))
   }, [])
 
-  const handleEditorDidMount = (editor, monaco) => {
-    editorRef.current = editor;
-  };
+  // const handleEditorDidMount = (editor, monaco) => {
+  //   editorRef.current = editor;
+  // };
 
-  const handleEditorChange = (value) => {
-    const parsedCode = parse(value)
-    setCode(parsedCode)
-  }
+  // const handleEditorChange = (value) => {
+  //   const parsedCode = parse(value)
+  //   setCode(parsedCode)
+  // }
 
   const handleTextChange = (e) => {
     const value = e.target.value
@@ -38,24 +38,56 @@ export default function Home() {
   }
 
   return (
-    <main className={styles.main}>
-      <div className={[styles.editor, sourceCodePro.className].join(' ')}>
-        {/* <Editor
-          defaultLanguage="markdown"
-          defaultValue={markdownMock}
-          theme="vs-dark"
-          onMount={handleEditorDidMount}
-          onChange={handleEditorChange}
-        /> */}
-        <textarea
-          onChange={handleTextChange}
-          value={text}
-        />
-      </div>
+    <div className={styles.app}>
+      <header className={lato.className}>
+        <div className={styles.title}>
+          <h1>MARKDOWN</h1>
+          <div>
+            <p>Document Name</p>
+            <input type="text" value={fileTitle} onChange={e => setFileTitle(e.target.value)} />
+          </div>
+        </div>
 
-      <div className={[styles.markdown, robotoSlab.className].join(' ')}>
-        <div dangerouslySetInnerHTML={{ __html: code }} />
-      </div>
-    </main>
+        <div>
+          {/* <button>
+            <Image
+              src="/icons/delete.svg"
+              width={24}
+              height={24}
+              alt="Delete"
+            />
+          </button> */}
+          <button>
+            <Image
+              src="/icons/save-dark.svg"
+              width={18}
+              height={18}
+              alt="Delete"
+              style={{ marginRight: '4px' }}
+            />
+            Save Changes
+          </button>
+        </div>
+      </header>
+
+      <main className={[styles.main, robotoSlab].join(' ')}>
+        <div>
+          <div className={[styles.sectionHeader, lato.className].join(' ')}>MARKDOWN</div>
+          <div className={[styles.editor, sourceCodePro.className].join(' ')}>
+            <textarea
+              onChange={handleTextChange}
+              value={text}
+            />
+          </div>
+        </div>
+
+        <div>
+          <div className={[styles.sectionHeader, lato.className].join(' ')}>PREVIEW</div>
+          <div className={[styles.markdown, robotoSlab.className].join(' ')}>
+            <div dangerouslySetInnerHTML={{ __html: code }} />
+          </div>
+        </div>
+      </main>
+    </div>
   )
 }
