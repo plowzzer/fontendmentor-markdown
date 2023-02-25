@@ -50,7 +50,7 @@ export default function Home() {
         <textarea
           onChange={handleTextChange}
           value={text}
-        >{text}</textarea>
+        />
       </div>
 
       <div className={[styles.markdown, robotoSlab.className].join(' ')}>
