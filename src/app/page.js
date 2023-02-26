@@ -1,5 +1,5 @@
 'use client'
-import { Roboto_Slab, Source_Code_Pro, Lato } from 'next/font/google'
+import { Roboto_Slab, Source_Code_Pro, Open_Sans } from 'next/font/google'
 import { useState, useEffect } from 'react';
 import { parse } from 'marked';
 import Image from 'next/image';
@@ -9,7 +9,7 @@ import styles from './page.module.scss'
 import markdownMock from './markdown-mock'
 const robotoSlab = Roboto_Slab({ subsets: ['latin'] })
 const sourceCodePro = Source_Code_Pro({ subsets: ['latin'] })
-const lato = Lato({ subsets: ['latin'], weight: '400' })
+const openSans = Open_Sans({ subsets: ['latin'], weight: '400' })
 
 export default function Home() {
   const [fileTitle, setFileTitle] = useState('welcome.md')
@@ -21,15 +21,6 @@ export default function Home() {
     setCode(parse(markdownMock))
   }, [])
 
-  // const handleEditorDidMount = (editor, monaco) => {
-  //   editorRef.current = editor;
-  // };
-
-  // const handleEditorChange = (value) => {
-  //   const parsedCode = parse(value)
-  //   setCode(parsedCode)
-  // }
-
   const handleTextChange = (e) => {
     const value = e.target.value
     setText(value)
@@ -39,12 +30,12 @@ export default function Home() {
 
   return (
     <div className={styles.app}>
-      <header className={lato.className}>
+      <header className={openSans.className}>
         <div className={styles.title}>
           <h1>MARKDOWN</h1>
-          <div>
-            <p>Document Name</p>
-            <input type="text" value={fileTitle} onChange={e => setFileTitle(e.target.value)} />
+          <div className={styles.documentName}>
+            <p>Compiler</p>
+            {/* <input type="text" value={fileTitle} onChange={e => setFileTitle(e.target.value)} /> */}
           </div>
         </div>
 
@@ -57,7 +48,7 @@ export default function Home() {
               alt="Delete"
             />
           </button> */}
-          <button>
+          {/* <button>
             <Image
               src="/icons/save-dark.svg"
               width={18}
@@ -66,13 +57,13 @@ export default function Home() {
               style={{ marginRight: '4px' }}
             />
             Save Changes
-          </button>
+          </button> */}
         </div>
       </header>
 
       <main className={[styles.main, robotoSlab].join(' ')}>
         <div>
-          <div className={[styles.sectionHeader, lato.className].join(' ')}>MARKDOWN</div>
+          <div className={[styles.sectionHeader, openSans.className].join(' ')}>MARKDOWN</div>
           <div className={[styles.editor, sourceCodePro.className].join(' ')}>
             <textarea
               onChange={handleTextChange}
@@ -82,7 +73,7 @@ export default function Home() {
         </div>
 
         <div>
-          <div className={[styles.sectionHeader, lato.className].join(' ')}>PREVIEW</div>
+          <div className={[styles.sectionHeader, openSans.className].join(' ')}>PREVIEW</div>
           <div className={[styles.markdown, robotoSlab.className].join(' ')}>
             <div dangerouslySetInnerHTML={{ __html: code }} />
           </div>
