@@ -11,17 +11,22 @@ const sourceCodePro = Source_Code_Pro({ subsets: ['latin'] })
 const openSans = Open_Sans({ subsets: ['latin'], weight: '400' })
 
 export default function Home() {
-  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (typeof window !== "undefined") {
+    const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
   const [fileTitle, setFileTitle] = useState('welcome.md')
   const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('theme')
-    return saved || 'dark'
+    let saved = 'dark'
+    if (typeof window !== "undefined") {
+      saved = localStorage.getItem('theme')
+    }
+
+    return saved
   });
   const [code, setCode] = useState('')
   const [text, setText] = useState('')
 
   useEffect(() => {
-    console.log(theme)
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
