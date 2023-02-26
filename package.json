@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@monaco-editor/react": "^4.4.6",
     "eslint": "8.34.0",
     "eslint-config-next": "13.2.1",
     "marked": "^4.2.12",

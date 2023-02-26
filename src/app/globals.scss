@@ -1,21 +1,19 @@
 :root {
-  // --primaryColor: #fff;
-  // --secondaryColor: #E66543;
-  // --headerLightColor: #35383F;
-  // --headerMidColor: #2C2D30;
-  // --headerSubtitle: #1E1F22;
-  // --bodyBackground: #15161A;
+  --primaryColor: #fff;
+  --secondaryColor: #E66543;
+  --headerLightColor: #35383F;
+  --headerMidColor: #2C2D30;
+  --headerSubtitle: #1E1F22;
+  --bodyBackground: #15161A;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primaryColor: #fff;
-    --secondaryColor: #E66543;
-    --headerLightColor: #35383F;
-    --headerMidColor: #2C2D30;
-    --headerSubtitle: #1E1F22;
-    --bodyBackground: #15161A;
-  }
+[data-theme='light'] {
+  --primaryColor: #333;
+  --secondaryColor: #E66543;
+  --headerLightColor: #35383F;
+  --headerMidColor: #F6F6F6;
+  --headerSubtitle: #F6F6F6;
+  --bodyBackground: #fff;
 }
 
 * {
@@ -31,18 +29,12 @@ body {
 }
 
 body {
-  color: rgb(var(primaryColor));
-  background-color: var(bodyBackgroundDark);
+  color: var(--primaryColor);
+  background-color: var(--bodyBackgroundDark);
 }
 
 a {
   color: inherit;
   text-decoration: none;
   color: var(--secondaryColor)
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }

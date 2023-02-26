@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { parse } from 'marked';
 import Image from 'next/image';
 
-
 import styles from './page.module.scss'
 import markdownMock from './markdown-mock'
 const robotoSlab = Roboto_Slab({ subsets: ['latin'] })
@@ -12,9 +11,25 @@ const sourceCodePro = Source_Code_Pro({ subsets: ['latin'] })
 const openSans = Open_Sans({ subsets: ['latin'], weight: '400' })
 
 export default function Home() {
+  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [fileTitle, setFileTitle] = useState('welcome.md')
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('theme')
+    return saved || 'dark'
+  });
   const [code, setCode] = useState('')
   const [text, setText] = useState('')
+
+  useEffect(() => {
+    console.log(theme)
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  const switchTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', newTheme)
+    setTheme(newTheme);
+  }
 
   useEffect(() => {
     setText(markdownMock)
@@ -40,14 +55,14 @@ export default function Home() {
         </div>
 
         <div>
-          {/* <button>
+          <button onClick={switchTheme}>
             <Image
-              src="/icons/delete.svg"
+              src={`/icons/${theme === 'dark' ? 'light' : 'dark'}.svg`}
               width={24}
               height={24}
-              alt="Delete"
+              alt={`Mudar para visual ${theme === 'dark' ? 'claro' : 'escuro'}`}
             />
-          </button> */}
+          </button>
           {/* <button>
             <Image
               src="/icons/save-dark.svg"
@@ -73,7 +88,17 @@ export default function Home() {
         </div>
 
         <div>
-          <div className={[styles.sectionHeader, openSans.className].join(' ')}>PREVIEW</div>
+          <div className={[styles.sectionHeader, openSans.className].join(' ')}>
+            <span>PREVIEW</span>
+            <button className={styles.iconButton}>
+              <Image
+                src="/icons/visibility.svg"
+                width={18}
+                height={18}
+                alt="Preview"
+              />
+            </button>
+          </div>
           <div className={[styles.markdown, robotoSlab.className].join(' ')}>
             <div dangerouslySetInnerHTML={{ __html: code }} />
           </div>
