@@ -1,20 +1,18 @@
 'use client'
-import { Roboto_Slab, Source_Code_Pro, Open_Sans } from 'next/font/google'
+
 import { useState, useEffect } from 'react';
 import { parse } from 'marked';
 import Image from 'next/image';
 
-import styles from './page.module.scss'
+import { sourceCodePro, robotoSlab } from './fonts'
+
+import styles from './styles/page.module.scss'
+import mdStyles from './styles/markdown.module.scss'
+
 import markdownMock from './markdown-mock'
-const robotoSlab = Roboto_Slab({ subsets: ['latin'] })
-const sourceCodePro = Source_Code_Pro({ subsets: ['latin'] })
-const openSans = Open_Sans({ subsets: ['latin'], weight: '400' })
 
 export default function Home() {
-  if (typeof window !== "undefined") {
-    const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }
-  const [fileTitle, setFileTitle] = useState('welcome.md')
+  // const [fileTitle, setFileTitle] = useState('welcome.md')
   const [theme, setTheme] = useState(() => {
     let saved = 'dark'
     if (typeof window !== "undefined") {
@@ -34,6 +32,7 @@ export default function Home() {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     localStorage.setItem('theme', newTheme)
     setTheme(newTheme);
+    console.log(theme)
   }
 
   useEffect(() => {
@@ -50,7 +49,7 @@ export default function Home() {
 
   return (
     <div className={styles.app}>
-      <header className={openSans.className}>
+      <header>
         <div className={styles.title}>
           <h1>MARKDOWN</h1>
           <div className={styles.documentName}>
@@ -83,7 +82,7 @@ export default function Home() {
 
       <main className={[styles.main, robotoSlab].join(' ')}>
         <div>
-          <div className={[styles.sectionHeader, openSans.className].join(' ')}>MARKDOWN</div>
+          <div className={styles.sectionHeader}>MARKDOWN</div>
           <div className={[styles.editor, sourceCodePro.className].join(' ')}>
             <textarea
               onChange={handleTextChange}
@@ -93,7 +92,7 @@ export default function Home() {
         </div>
 
         <div>
-          <div className={[styles.sectionHeader, openSans.className].join(' ')}>
+          <div className={styles.sectionHeader}>
             <span>PREVIEW</span>
             <button className={styles.iconButton}>
               <Image
@@ -104,7 +103,7 @@ export default function Home() {
               />
             </button>
           </div>
-          <div className={[styles.markdown, robotoSlab.className].join(' ')}>
+          <div className={[mdStyles.markdown, robotoSlab.className].join(' ')}>
             <div dangerouslySetInnerHTML={{ __html: code }} />
           </div>
         </div>

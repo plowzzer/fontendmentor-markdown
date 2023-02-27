@@ -1,3 +1,5 @@
+import { openSans } from './fonts'
+
 import './globals.scss'
 
 export const metadata = {
@@ -7,7 +9,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={openSans.className}>
       <body>{children}</body>
     </html>
   )

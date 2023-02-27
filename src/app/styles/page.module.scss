@@ -1,0 +1,99 @@
+.app {
+  display: flex;
+  flex-direction: column;
+
+  header {
+    background-color: var(--headerLightColor);
+    color: #fff;
+    padding: 0 .5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+
+    .title {
+      display: flex;
+      gap: 20px;
+
+      h1 {}
+
+      .documentName {
+        display: flex;
+        align-items: center;
+
+        p {
+          font-size: .85rem;
+        }
+      }
+
+      input {
+        background-color: transparent;
+        border: 0;
+        outline: none;
+      }
+    }
+
+    button {
+      background-color: var(--secondaryColor);
+      color: var(--primaryColor);
+      padding: .25rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      border: none;
+    }
+  }
+}
+
+.main {
+  display: flex;
+  height: calc(100vh - 80px);
+  gap: 1px;
+  background-color: var(--headerMidColor);
+
+  &>div {
+    width: 50%;
+    overflow-x: scroll;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    .sectionHeader {
+      height: 40px;
+      padding: 0 .5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.121rem;
+      background-color: var(--headerMidColor);
+      color: var(--primaryColor);
+    }
+
+    .editor,
+    .markdown {
+      height: calc(100vh - 80px - 40px);
+      overflow-x: scroll;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    height: 100%;
+    padding: .5rem;
+    font-size: .85rem;
+    border: 0;
+    background-color: var(--bodyBackground);
+    color: var(--primaryColor);
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
+
+button {
+  &.iconButton {
+    border: none;
+    background: transparent;
+  }
+}
