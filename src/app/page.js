@@ -9,7 +9,7 @@ import { sourceCodePro, robotoSlab } from './fonts'
 import styles from './styles/page.module.scss'
 import mdStyles from './styles/markdown.module.scss'
 
-import markdownMock from './markdown-mock'
+import markdownMock from './markdown-mock.js'
 
 export default function Home() {
   // const [fileTitle, setFileTitle] = useState('welcome.md')
@@ -36,12 +36,14 @@ export default function Home() {
   }
 
   useEffect(() => {
-    setText(markdownMock)
-    setCode(parse(markdownMock))
+    const decoded = decodeURI(markdownMock)
+    setText(decoded)
+    setCode(parse(decoded))
   }, [])
 
   const handleTextChange = (e) => {
     const value = e.target.value
+    // console.log(encodeURI(value))
     setText(value)
     const parsedCode = parse(value)
     setCode(parsedCode)
